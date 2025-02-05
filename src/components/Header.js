@@ -1,3 +1,6 @@
+import {openLoginModal} from "./Modal.js";
+import {openVisitForm} from "./VisitModal.js";
+
 export function createHeader() {
   const header = document.createElement("header");
   header.classList.add("header");
@@ -14,7 +17,7 @@ export function createHeader() {
 
   authButton.addEventListener("click", () => {
     if (token) {
-      openCreateVisitModal();
+      openVisitForm();
     } else {
       openLoginModal();
     }

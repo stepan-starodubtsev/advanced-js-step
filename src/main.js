@@ -1,50 +1,48 @@
-import { createHeader } from "./components/Header";
-import { createFilters } from "./components/Filter";
-import { fetchVisits } from "./api/visits";
-import { openLoginModal } from "./components/Modal";
-import { openVisitForm } from "./components/VisitModal";
+import {createHeader} from "./components/Header";
+import {createFilters} from "./components/Filter";
+import {deleteVisit, fetchVisits} from "./api/visits";
+import {openLoginModal} from "./components/Modal";
+import {openVisitForm} from "./components/VisitModal";
+import {createVisitCard} from "./components/VisitCard.js";
 
 async function renderVisits() {
-  const visitsContainer = document.createElement("div");
-  visitsContainer.classList.add("visits-container");
+    const visitsContainer = document.createElement("div");
+    visitsContainer.classList.add("visits-container");
 
-  try {
-    const visits = await fetchVisits();
-    visits.forEach((visit) => {
-      const visitCard = document.createElement("div");
-      visitCard.classList.add("visit-card");
-      visitCard.dataset.doctor = visit.doctor;
-      visitCard.dataset.urgency = visit.urgency;
-      visitCard.dataset.fullname = visit.fullName;
-      visitCard.innerHTML = `
-        <div class="visit-header">${visit.fullName} - ${visit.doctor}</div>
-        <div class="visit-details">${visit.purpose}</div>
-      `;
-      visitsContainer.appendChild(visitCard);
-    });
-  } catch (error) {
-    console.error("Error fetching visits:", error);
-  }
+    try {
+        const visits = await fetchVisits();
+        visits.forEach((visit) => {
+            const visitCard = createVisitCard(visit);
+            visitsContainer.appendChild(visitCard);
+        });
+    } catch (error) {
+        console.error("Error fetching visits:", error);
+    }
 
-  document.body.appendChild(visitsContainer);
+    document.body.appendChild(visitsContainer);
+
+    document.querySelectorAll(".visit-btn-delete").forEach(element => element.addEventListener("click", (event) => {
+        event.preventDefault();
+        const visitCard = event.target.closest(".visit-card");
+        deleteVisit(visitCard.dataset.id);
+        location.reload();
+    }));
+
+    document.querySelectorAll(".visit-btn-update").forEach(element => element.addEventListener("click", (event) => {
+        event.preventDefault();
+        const visitCard = event.target.closest(".visit-card");
+        openVisitForm()
+    }));
 }
 
 export function initializeApp() {
-  createHeader();
-  createFilters();
+    createHeader();
+    createFilters();
 
-  const token = localStorage.getItem("token");
-  if (token) {
-    renderVisits();
-  }
-
-  document.body.addEventListener("click", (event) => {
-    if (event.target.classList.contains("auth-button")) {
-      if (token) {
-        openVisitForm();
-      } else {
-        openLoginModal();
-      }
+    const token = localStorage.getItem("token");
+    if (token) {
+        renderVisits().catch(error => {
+            console.error(error);
+        });
     }
-  });
 }
