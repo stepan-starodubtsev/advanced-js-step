@@ -1,0 +1,29 @@
+.visits-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.visit-card {
+  background: white;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: $border-radius;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  border-left: 5px solid $primary-color;
+  transition: transform $transition-speed;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+
+  .visit-header {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .visit-details {
+    font-size: 0.9rem;
+    color: $secondary-color;
+  }
+}

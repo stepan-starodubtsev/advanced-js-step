@@ -1,4 +1,4 @@
-export class Visit {
+export class VisitCard {
   constructor(doctor, purpose, description, urgency, fullName) {
     this.doctor = doctor;
     this.purpose = purpose;

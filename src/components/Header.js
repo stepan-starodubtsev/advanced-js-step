@@ -1,7 +1,7 @@
 export function createHeader() {
   const header = document.createElement("header");
   header.classList.add("header");
-
+  
   const logo = document.createElement("div");
   logo.textContent = "Doctor Visits";
   logo.classList.add("logo");

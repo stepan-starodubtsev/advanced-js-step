@@ -22,23 +22,18 @@ export function openVisitForm() {
 
   document.body.appendChild(formModal);
 
-  // Close button event listener
   document
     .getElementById("close-btn")
     .addEventListener("click", () => formModal.remove());
 
-  // Form submit event listener
   const visitForm = document.getElementById("visit-form");
 
   visitForm.addEventListener("submit", function (event) {
-    // Prevent the default form submission (page reload)
     event.preventDefault();
 
-    // Grab the values from the form
     const fullname = document.getElementById("fullname").value;
     const doctor = document.getElementById("doctor").value;
 
-    // Log or process the form data
     console.log("Form submitted:", { fullname, doctor });
 
     try {
@@ -47,7 +42,6 @@ export function openVisitForm() {
       console.error("Error creating visit:", error);
     }
 
-    // Optionally close the modal after submission
     formModal.remove();
   });
 }

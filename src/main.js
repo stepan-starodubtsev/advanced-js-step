@@ -1,12 +1,9 @@
-// src/main.js
 import { createHeader } from "./components/Header";
 import { createFilters } from "./components/Filter";
 import { fetchVisits } from "./api/visits";
-import { openVisitForm } from "./components/VisitForm";
 import { openLoginModal } from "./components/Modal";
+import { openVisitForm } from "./components/VisitModal";
 
-
-// Function to render visits on the page
 async function renderVisits() {
   const visitsContainer = document.createElement("div");
   visitsContainer.classList.add("visits-container");
@@ -32,24 +29,21 @@ async function renderVisits() {
   document.body.appendChild(visitsContainer);
 }
 
-// Main app initialization function
 export function initializeApp() {
   createHeader();
   createFilters();
 
-  // If user is logged in, fetch visits
   const token = localStorage.getItem("token");
   if (token) {
     renderVisits();
   }
 
-  // Event listener for opening login modal
   document.body.addEventListener("click", (event) => {
     if (event.target.classList.contains("auth-button")) {
       if (token) {
-        openVisitForm(); // Open visit form if logged in
+        openVisitForm();
       } else {
-        openLoginModal(); // Open login modal if not logged in
+        openLoginModal();
       }
     }
   });
