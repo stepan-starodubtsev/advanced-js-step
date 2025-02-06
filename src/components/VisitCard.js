@@ -1,12 +1,9 @@
-import {deleteVisit} from "../api/visits.js";
-import {openVisitForm} from "./VisitModal.js";
-
 export function createVisitCard(visit) {
     const visitCard = document.createElement("div");
     visitCard.classList.add("visit-card");
     visitCard.dataset.id = visit.id;
+    visitCard.dataset.visit = JSON.stringify(visit);
     visitCard.dataset.fullname = visit.fullName;
-    console.log(visit.fullName)
     visitCard.dataset.doctor = visit.doctor;
     visitCard.dataset.urgency = visit.urgency;
     visitCard.innerHTML = `

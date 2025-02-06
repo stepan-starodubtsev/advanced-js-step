@@ -9,7 +9,6 @@ export class VisitTherapist extends Visit {
                 rest
     ) {
         super(id, fullName, purpose, urgency, description, "Therapist");
-        console.log(rest);
         this.age = rest.age;
     }
 }

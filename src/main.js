@@ -30,8 +30,9 @@ async function renderVisits() {
 
     document.querySelectorAll(".visit-btn-update").forEach(element => element.addEventListener("click", (event) => {
         event.preventDefault();
-        const visitCard = event.target.closest(".visit-card");
-        openVisitForm()
+        const visitCardData = event.target.closest(".visit-card").dataset;
+        const visit = JSON.parse(visitCardData.visit);
+        openVisitForm(visit);
     }));
 }
 

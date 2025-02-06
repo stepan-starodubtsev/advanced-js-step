@@ -11,6 +11,8 @@ export async function createVisit(visitData) {
 }
 
 export async function updateVisit(id, updatedData) {
+  console.log(updatedData);
+  console.log(id);
   const response = await api.put(`/${id}`, updatedData);
   return response.data;
 }
